@@ -9,5 +9,5 @@ To build all modules, use:
 To build one module with name <modname>, use:
     make <modname>
 
-
+Available modules are: c, cpp, java, foo, python.
 
