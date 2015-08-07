@@ -1,0 +1,7 @@
+ALLMOD:=
+ifeq ($(ARCH),JAVA)
+ALLMOD+=java
+else
+ALLMOD+=c cpp foo
+endif
+BLDMOD:=$(ALLMOD)

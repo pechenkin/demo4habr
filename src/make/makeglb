@@ -1,0 +1,21 @@
+ifdef _MAKEGLB_
+exit
+endif
+_MAKEGLB_=1
+
+#include common make library & configs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

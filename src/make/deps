@@ -1,0 +1,20 @@
+MOD_c =c
+MOD_cpp=cpp
+MOD_java=java
+MOD_python=python
+MOD_foo=foo
+
+DEP_c=
+DEP_cpp=
+DEP_java=
+DEP_python=
+DEP_foo=
+
+MODS=c cpp java foo python
+
+define gen-dep
+$(1):$(foreach dep,$(DEP_$(1)),$(dep)) FORCE
+	$(MAKE) $(MAKEDEFS) MODULE=$(1)
+endef
+
+$(foreach mod,$(MODS),$(eval $(call gen-dep,$(mod))))

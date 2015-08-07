@@ -1,0 +1,40 @@
+PLARFORMS?=PLTS
+PLT_ARCHS?=ARCHS
+ARCH_COMPILERS?=CMPLS
+
+FOR_EACH_MOD     = for i in $(BLDMOD); do
+FOR_EACH_PLT     = for p in $(PLATFORMS); do
+FOR_EACH_ARCH    = echo [ $(PLT) ] && for a in $(filter $(ARCHS),$(PLT_ARCHS)); do
+FOR_EACH_CMPL    = echo [ $(PLT) $(ARCH) ] && for c in $(filter $(COMPILERS),$(ARCH_COMPILERS)); do
+FOR_EACH_CMPLV   = echo [ $(PLT) $(ARCH) $(CMPL) ] && for v in $(filter $($(CMPL)_VERS),$(CMPL_VERS)); do
+FOR_EACH_TYPE    = for t in $(TYPES); do
+FOR_EACH_MOD_END = ;done
+
+MAKEMOD          = mkdir -p $(BLDROOT)/$(MODULE) && cd $(SRCROOT)/$(MODULE) && $(MAKE) -f $(SRCROOT)/$(MODULE)/makefile.lmk $(MAKEDEFS) && cd $(BLDROOT)
+MAKEMODULE       = echo "MAKE [ $$i ]" && $(MAKEMOD)
+
+
+ifdef PLT
+include $(MAKESTUB)/plt/$(PLT)
+MAKEDEFS += PLT=$(PLT)
+ifdef ARCH
+include $(MAKESTUB)/arch/$(ARCH)
+MAKEDEFS += ARCH=$(ARCH)
+ifdef CMPL
+include $(MAKESTUB)/cmpl/$(CMPL)
+MAKEDEFS += CMPL=$(CMPL)
+include $(MAKESTUB)/modules/full.list
+FOR_= $(FOR_EACH_MOD)
+_DO += MODULE=$$i
+else
+FOR_= $(FOR_EACH_CMPL)
+_DO += CMPL=$$c
+endif #CMPL
+else
+FOR_= $(FOR_EACH_ARCH)
+_DO += ARCH=$$a
+endif #ARCH
+else
+FOR_= $(FOR_EACH_PLT)
+_DO += PLT=$$p
+endif #PLT

@@ -1,0 +1,3 @@
+MAKESTUB = $(SRCROOT)/make
+include defs
+include $(MAKESTUB)/makeglb

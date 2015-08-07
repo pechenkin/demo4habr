@@ -1,0 +1,11 @@
+CMPL.CMPL = javac
+CMPL.FILE = @$(CFL)
+CMPL.OUT = -d 
+
+LNK.E.LNK=
+LNK.E.FILE=
+LNK.E.OUT = echo
+
+ifneq ($(ARCH),JAVA)
+DONT_BUILD=TRUE
+endif

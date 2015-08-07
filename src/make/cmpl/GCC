@@ -1,0 +1,41 @@
+CMPL.CMPL = gcc
+CMPL.FILE = @$(CFL)
+CMPL.OUT = -o
+
+CMPL.D.FLAGS= -fpic
+CMPL.E.FLAGS= 
+CMPL.S.FLAGS= 
+
+
+DEF.PREFIX=-D
+DEF.SUFFIX= 
+
+DEFS+=-c
+DEFS+=-I$(SRCMOD)
+
+LNK.E.LNK=gcc
+LNK.E.FILE=@$(LNK)
+LNK.E.OUT = -o
+
+
+LNK.D.LNK=gcc
+LNK.D.FILE=@$(LNK)
+LNK.D.OUT = -o
+LNK.D.FLAGS= -shared
+
+LNK.S.LNK=ar -cvq
+LNK.S.FILE=
+LNK.S.OUT = 
+LNK.S.FLAGS=
+LNK.S.EXT=@$(LNK)
+
+ifeq ($(ARCH),AMD64)
+DEFS+= -m64
+endif
+
+ifeq ($(ARCH),X86)
+DEFS+= -m32
+endif
+
+
+

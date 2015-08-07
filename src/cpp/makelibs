@@ -1,0 +1,2 @@
+OBJS=hello.obj
+SLIBS_LINUX=-lstdc++

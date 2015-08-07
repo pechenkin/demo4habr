@@ -1,0 +1,4 @@
+PLT.EXT.S=.jar
+PLT.EXT.D=.jar
+PLT.EXT.E=.class
+ARCH_COMPILERS=JAVAC

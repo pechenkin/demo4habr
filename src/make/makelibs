@@ -1,0 +1,24 @@
+include $(MAKESTUB)/makeglb
+include $(MAKESTUB)/makedefs
+include $(SRCROOT)/$(MODULE)/makelibs
+
+ifneq ($(and $(PLT),$(ARCH),$(CMPL),$(TYPE)),)
+
+BLDMOD=$(BLDROOT)/$(MODULE)/$(PLT)_$(ARCH)_$(CMPL)_$(TYPE)
+SRCMOD=$(SRCROOT)/$(MODULE)/
+include $(MAKESTUB)/rules
+
+else
+
+include $(BLDROOT)/defs
+include $(MAKESTUB)/common
+
+ifneq ($(and $(PLT),$(ARCH),$(CMPL)),)
+FOR_= $(FOR_EACH_TYPE)
+_DO = TYPE=$$t
+endif
+
+all:
+	$(FOR_) $(MAKE) -f $(SRCROOT)/$(MODULE)/makefile.lmk $(MAKEDEFS) $(_DO) $(FOR_EACH_MOD_END)
+
+endif

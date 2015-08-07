@@ -1,0 +1,3 @@
+MODULE=foo
+TYPES=D S
+include $(MAKESTUB)/makelibs

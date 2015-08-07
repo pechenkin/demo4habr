@@ -1,0 +1,66 @@
+ifdef $(DONT_BUILD_$(PLT))
+DONT_BUILD=TRUE
+endif
+
+ifdef $(DONT_BUILD_$(ARCH))
+DONT_BUILD=TRUE
+endif
+
+ifdef $(DONT_BUILD_$(CMPL))
+DONT_BUILD=TRUE
+endif
+
+ifeq ($(DONT_BUILD),TRUE)
+_EXT=$(PLT.EXT.$(TYPE))
+else
+
+TARGET=$(BLDMOD)/$(PLT.PRF.$(TYPE))$(MODULE)$(PLT.EXT.$(TYPE))
+LNK=$(TARGET).lnk
+CFL=$(TARGET).cfl
+MKF=$(BLDMOD)/Makefile
+
+DEFS+=$(CMPL.$(TYPE).FLAGS)
+
+DEFS+=$(foreach i,$(DEFINITIONS), $(DEF.PREFIX)$(i)$(DEF.SUFFIX))
+LINK+=$(foreach i,$(LNK.$(TYPE).FLAGS), $(i))
+LINK+=$(foreach i,$(OBJS),  $(LNK.OBJ.PREFIX)$(BLDMOD)/$(i)$(LNK.OBJ.SUFFIX))
+LINK+=$(foreach i,$(SLIBS) $(SLIBS_$(PLT)), $(LNK.SLIBS.PREFIX)$(i)$(LNK.SLIBS.SUFFIX))
+LINK+=$(foreach i,$(DLIBS) $(DLIBS_$(PLT)), $(LNK.DLIBS.PREFIX)$(i)$(LNK.DLIBS.SUFFIX))
+
+%.obj: $(CFL)
+	$(CMPL.CMPL) $(CMPL.FILE) $(SRCMOD)$*.c* $(CMPL.OUT) $(BLDMOD)/$@
+	
+%.class: $(CFL)
+	$(CMPL.CMPL) $(CMPL.FILE) $(SRCMOD)$*.java $(CMPL.OUT) $(BLDMOD)/
+
+$(TARGET): $(MKF) $(OBJS) $(LNK)
+	$(LNK.$(TYPE).LNK) $(LNK.$(TYPE).FILE) $(LNK.$(TYPE).OUT) $@ $(LNK.$(TYPE).EXT)
+
+
+$(MKF): $(BLDMOD)
+	mkdir -p $(BLDMOD)
+	echo MODULE=$(MODULE) > $(MKF)
+	echo PLT=$(PLT) >> $(MKF)
+	echo ARCH=$(ARCH) >> $(MKF)
+	echo CMPL=$(CMPL) >> $(MKF)
+	echo TYPE=$(TYPE) >> $(MKF)
+	echo SRCROOT=$(SRCROOT) >> $(MKF)
+	echo BLDROOT=$(BLDROOT) >> $(MKF)
+	echo MAKESTUB=$(MAKESTUB) >> $(MKF)
+	echo "include $(SRCMOD)/makefile.lmk" >> $(MKF)
+	
+$(CFL): $(BLDMOD)
+	mkdir -p $(BLDMOD)
+	echo $(DEFS) > $(CFL)
+	
+$(LNK): $(BLDMOD)
+	mkdir -p $(BLDMOD)
+	echo $(LINK) > $(LNK)
+
+$(BLDMOD):
+	mkdir $@
+
+all: $(TARGET)
+	
+
+endif #DONT_BUILD

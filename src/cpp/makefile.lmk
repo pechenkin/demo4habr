@@ -1,0 +1,2 @@
+TYPE=E
+include $(MAKESTUB)/makelibs

@@ -1,0 +1,13 @@
+First, create <bldroot> and copy file config.mk into this directory. 
+Next, edit config.mk and correct values SRCROOT and BLDROOT. Execute
+command:
+    make -f config.mk
+
+To build all modules, use:
+    make all
+
+To build one module with name <modname>, use:
+    make <modname>
+
+
+

@@ -1,0 +1,36 @@
+ifdef BLDROOT
+MAKEDEFS+= BLDROOT=$(BLDROOT)
+endif
+
+ifdef SRCROOT
+MAKEDEFS+= SRCROOT=$(SRCROOT)
+endif
+
+ifdef MAKESTUB
+MAKEDEFS+= MAKESTUB=$(MAKESTUB)
+endif
+
+ifdef MODULE
+MAKEDEFS+= MODULE=$(MODULE)
+endif
+
+ifdef PLT
+include $(MAKESTUB)/plt/$(PLT)
+MAKEDEFS+= PLT=$(PLT)
+endif
+
+ifdef ARCH
+include $(MAKESTUB)/arch/$(ARCH)
+MAKEDEFS+= ARCH=$(ARCH)
+endif
+
+ifdef CMPL
+include $(MAKESTUB)/cmpl/$(CMPL)
+MAKEDEFS+= CMPL=$(CMPL)
+endif
+
+ifdef TYPE
+MAKEDEFS+= TYPE=$(TYPE)
+DO_BUILD=1
+endif
+

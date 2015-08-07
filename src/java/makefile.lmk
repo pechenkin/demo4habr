@@ -1,0 +1,4 @@
+ARCHS=JAVA
+CMPLS=JAVAC
+TYPE=E
+include $(MAKESTUB)/makelibs
