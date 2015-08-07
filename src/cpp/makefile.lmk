@@ -1,2 +1,3 @@
+DONT_BUILD_JAVA=TRUE
 TYPE=E
 include $(MAKESTUB)/makelibs

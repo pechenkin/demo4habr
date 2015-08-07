@@ -1,3 +1,4 @@
+DONT_BUILD_JAVA=TRUE
 MODULE=foo
 TYPES=D S
 include $(MAKESTUB)/makelibs

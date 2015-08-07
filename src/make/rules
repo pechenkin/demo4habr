@@ -1,17 +1,19 @@
-ifdef $(DONT_BUILD_$(PLT))
+ifneq ($(DONT_BUILD_$(PLT)),)
 DONT_BUILD=TRUE
 endif
 
-ifdef $(DONT_BUILD_$(ARCH))
+ifneq ($(DONT_BUILD_$(ARCH)),)
 DONT_BUILD=TRUE
 endif
 
-ifdef $(DONT_BUILD_$(CMPL))
+ifneq ($(DONT_BUILD_$(CMPL)),)
 DONT_BUILD=TRUE
 endif
 
 ifeq ($(DONT_BUILD),TRUE)
 _EXT=$(PLT.EXT.$(TYPE))
+all:
+	echo "skipped"
 else
 
 TARGET=$(BLDMOD)/$(PLT.PRF.$(TYPE))$(MODULE)$(PLT.EXT.$(TYPE))

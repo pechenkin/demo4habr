@@ -1,2 +1,4 @@
+DONT_BUILD_JAVA=1
+
 OBJS=hello.obj
 SLIBS_LINUX=-lc
